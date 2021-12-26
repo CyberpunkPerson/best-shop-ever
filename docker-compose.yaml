@@ -12,15 +12,15 @@ services:
       monitoring:
         aliases:
           - postgres
-  best-shop-ever:
-    container_name: best-shop-ever
-    build: 'best-shop-ever'
+  application:
+    container_name: application
+    build: 'application'
     ports:
       - 8080:8080
     networks:
       monitoring:
         aliases:
-          - best-shop-ever
+          - application
     depends_on:
       - postgres
   grafana:
@@ -54,7 +54,7 @@ services:
         aliases:
           - prometheus
     depends_on:
-      - best-shop-ever
+      - application
 
 networks:
   monitoring:
