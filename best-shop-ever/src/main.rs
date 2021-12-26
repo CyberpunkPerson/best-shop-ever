@@ -13,7 +13,7 @@ async fn main() -> std::io::Result<()> {
             .configure(item_service_config)
             .wrap(Logger::default())
     })
-    .bind("127.0.0.1:8080")?
+    .bind("localhost:8080")?
     .run()
     .await
 }
