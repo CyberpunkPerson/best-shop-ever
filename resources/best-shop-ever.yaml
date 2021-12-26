@@ -489,7 +489,7 @@ components:
           example: Example description
         price:
           description: Item's price
-          type: big-decimal
+          type: string
 
     Order:
       description: Order in the store

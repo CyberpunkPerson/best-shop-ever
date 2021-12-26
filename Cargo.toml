@@ -5,3 +5,15 @@ edition = "2018"
 
 [dependencies]
 actix-web = "3.3.3"
+uuid = {version = "0.8.2", features=["serde", "v4"]}
+openapi = {path = "generated/openapi"}
+bigdecimal = "0.3.0"
+futures = "0.3.19"
+serde_json = "1.0.73"
+shaku_derive = "0.6.1"
+shaku = "0.6.1"
+shaku_actix = "0.1.1"
+env_logger = "0.9.0"
+
+[features]
+
