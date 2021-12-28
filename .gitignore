@@ -1,4 +1,5 @@
-/target
+/application/target
+volumes/
 
 ### IntelliJ IDEA ###
 .idea

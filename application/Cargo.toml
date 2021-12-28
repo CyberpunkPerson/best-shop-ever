@@ -15,5 +15,6 @@ shaku = "0.6.1"
 shaku_actix = "0.1.1"
 env_logger = "0.9.0"
 
-[features]
-
+[[bin]]
+name = "app"
+path = "src/main.rs"
