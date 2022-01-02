@@ -1,12 +1,24 @@
+use tokio_item_repository::TokioItemRepository;
+use openapi::models::item::Item;
+use shaku::{module, HasComponent, Interface};
 use uuid::Uuid;
-use openapi::models::item::Item
 
-pub mod repository {
+mod item_repository;
+mod tokio_item_repository;
 
-    pub Vec<Item> find_all();
+pub trait ItemRepositoryModule: HasComponent<dyn ItemRepository> {}
 
-    pub Item save(item: Item);
+module! {
+    pub ItemRepositoryModuleImpl : ItemRepositoryModule {
+        components = [TokioItemRepository],
+        providers = []
+    }
+}
 
-    pub Option<Item> find_by_id(item_id: Uuid);
+pub trait ItemRepository: Interface {
+    fn find_all(&self) -> Vec<Item>;
 
+    fn save(&self, item: &Item) -> Item;
+
+    fn find_by_id(&self, item_id: Uuid) -> Option<Item>;
 }
