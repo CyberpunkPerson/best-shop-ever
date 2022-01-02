@@ -1,8 +1,10 @@
+use super::repository::{ItemRepository, ItemRepositoryModule};
 use item_service::DefaultItemService;
 use openapi::models::item::Item;
 use shaku::{module, Interface};
 use uuid::Uuid;
-pub mod item_service;
+
+mod item_service;
 
 pub trait ItemService: Interface {
     fn find_all(&self) -> Vec<Item>;
@@ -15,6 +17,11 @@ pub trait ItemService: Interface {
 module! {
     pub ItemServiceModule {
         components = [DefaultItemService],
-        providers = []
+        providers = [],
+
+        use ItemRepositoryModule {
+            components = [ItemRepository],
+            providers = []
+        }
     }
 }
