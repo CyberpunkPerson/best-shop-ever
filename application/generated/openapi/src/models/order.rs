@@ -10,8 +10,6 @@
 
 /// Order : Order in the store
 
-
-
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct Order {
     /// order identificator
@@ -29,7 +27,12 @@ pub struct Order {
 
 impl Order {
     /// Order in the store
-    pub fn new(id: String, user_id: String, address: crate::models::Address, items: Vec<crate::models::Item>) -> Order {
+    pub fn new(
+        id: String,
+        user_id: String,
+        address: crate::models::Address,
+        items: Vec<crate::models::Item>,
+    ) -> Order {
         Order {
             id,
             user_id,
@@ -38,5 +41,3 @@ impl Order {
         }
     }
 }
-
-

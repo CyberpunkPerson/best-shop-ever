@@ -11,7 +11,6 @@
 use actix_web::{Error, HttpRequest, HttpResponse, Responder};
 use futures::future::{ready, Ready};
 
-
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct GetItemsResponse {
     /// List of existing items
@@ -21,9 +20,7 @@ pub struct GetItemsResponse {
 
 impl GetItemsResponse {
     pub fn new(items: Vec<crate::models::Item>) -> GetItemsResponse {
-        GetItemsResponse {
-            items,
-        }
+        GetItemsResponse { items }
     }
 }
 

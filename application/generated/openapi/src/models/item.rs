@@ -11,8 +11,6 @@
 /// Item : Item in the store
 use uuid::Uuid;
 
-
-
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct Item {
     /// Item identificator
@@ -40,5 +38,3 @@ impl Item {
         }
     }
 }
-
-

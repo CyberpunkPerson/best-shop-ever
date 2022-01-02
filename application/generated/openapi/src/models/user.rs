@@ -10,8 +10,6 @@
 
 /// User : User in the store
 
-
-
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct User {
     /// User identificator
@@ -34,5 +32,3 @@ impl User {
         }
     }
 }
-
-

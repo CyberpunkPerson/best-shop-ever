@@ -10,8 +10,6 @@
 
 /// ErrorResponse : Error response
 
-
-
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ErrorResponse {
     /// Error identificator
@@ -39,5 +37,3 @@ impl ErrorResponse {
         }
     }
 }
-
-

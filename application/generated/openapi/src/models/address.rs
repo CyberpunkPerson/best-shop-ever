@@ -10,8 +10,6 @@
 
 /// Address : User's address
 
-
-
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct Address {
     /// Address identificator
@@ -39,5 +37,3 @@ impl Address {
         }
     }
 }
-
-
