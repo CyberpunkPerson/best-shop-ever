@@ -1,27 +1,14 @@
-use super::repository::{ItemRepository, ItemRepositoryModule};
-use item_service::DefaultItemService;
+use async_trait::async_trait;
 use openapi::models::item::Item;
-use shaku::{module, Interface};
 use uuid::Uuid;
 
-mod item_service;
+pub mod item_service;
 
-pub trait ItemService: Interface {
-    fn find_all(&self) -> Vec<Item>;
+#[async_trait]
+pub trait ItemService {
+    async fn find_all(&self) -> Vec<Item>;
 
-    fn save(&self, item: &Item) -> Item;
+    async fn save(&self, item: &Item) -> Item;
 
-    fn find_by_id(&self, item_id: Uuid) -> Item;
-}
-
-module! {
-    pub ItemServiceModule {
-        components = [DefaultItemService],
-        providers = [],
-
-        use ItemRepositoryModule {
-            components = [ItemRepository],
-            providers = []
-        }
-    }
+    async fn find_by_id(&self, item_id: Uuid) -> Item;
 }

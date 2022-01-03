@@ -1,21 +1,19 @@
 [package]
-edition = "2018"
+edition = "2021"
 name = "best-shop-ever"
 version = "0.1.0"
 
 [dependencies]
-actix-web = "3.3.3"
-bigdecimal = "0.3.0"
+actix-web = "3.3.3" #todo update on 4^
+async-trait = "0.1.52"
 env_logger = "0.9.0"
 futures = "0.3.19"
 openapi = { path = "generated/openapi" }
-postgres = { version = "0.19.2", features = ["with-uuid-0_8"] }
+rust_decimal = { version = "1.19.0", features = ["db-tokio-postgres"] }
+rust_decimal_macros = "1.19.0"
 serde_json = "1.0.74"
-serde_postgres = "0.2.0"
-shaku = "0.6.1"
-shaku_actix = "0.1.1"
-shaku_derive = "0.6.1"
-tokio = "1.15.0"
+tokio = "0.2.9"
+tokio-postgres = { version = "0.7.5", features = ["with-uuid-0_8"] }
 uuid = { version = "0.8.2", features = ["serde", "v4"] }
 
 [[bin]]

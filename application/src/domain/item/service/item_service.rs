@@ -1,29 +1,38 @@
-use super::super::repository::ItemRepository;
-use super::ItemService;
-use openapi::models::Item;
-use shaku::Component;
 use std::sync::Arc;
 use std::vec::Vec;
+
+use async_trait::async_trait;
+use openapi::models::Item;
 use uuid::Uuid;
 
-#[derive(Component)]
-#[shaku(interface = ItemService)]
+use crate::domain::item::repository::tokio_item_repository::TokioItemRepository;
+use crate::domain::item::repository::ItemRepository;
+
+use super::ItemService;
+
 pub struct DefaultItemService {
-    #[shaku(inject)]
-    repository: Arc<dyn ItemRepository>,
+    repository: Arc<dyn ItemRepository + Send + Sync>,
 }
 
+#[async_trait]
 impl ItemService for DefaultItemService {
-    fn find_all(&self) -> Vec<Item> {
-        self.repository.find_all()
+    async fn find_all(&self) -> Vec<Item> {
+        self.repository.find_all().await
     }
-    fn save(&self, item: &Item) -> Item {
-        self.repository.save(item)
+
+    async fn save(&self, item: &Item) -> Item {
+        self.repository.save(item).await
     }
-    fn find_by_id(&self, item_id: Uuid) -> Item {
-        match self.repository.find_by_id(item_id) {
-            Some(item) => item,
-            None => panic!("Item by id {} not found!", item_id),
+
+    async fn find_by_id(&self, item_id: Uuid) -> Item {
+        self.repository.find_by_id(item_id).await.unwrap()
+    }
+}
+
+impl Default for DefaultItemService {
+    fn default() -> Self {
+        DefaultItemService {
+            repository: Arc::new(TokioItemRepository {}),
         }
     }
 }

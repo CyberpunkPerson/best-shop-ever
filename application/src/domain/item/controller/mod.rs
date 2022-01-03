@@ -1,35 +1,30 @@
-use super::service::{ItemService, ItemServiceModule};
 use actix_web::{get, put, web::Json, web::Path, Responder};
-use openapi::models::{
-    get_item_response::GetItemResponse, get_items_response::GetItemsResponse, item::Item,
-    put_item_response::PutItemResponse,
-};
-use shaku_actix::Inject;
+use openapi::models::{item::Item, GetItemResponse, GetItemsResponse, PutItemResponse};
 use uuid::Uuid;
 
+use crate::domain::item::service::item_service::DefaultItemService;
+use crate::domain::item::service::ItemService;
+
 #[put("/items")]
-async fn put_item(
-    item_service: Inject<ItemServiceModule, dyn ItemService>,
-    item: Json<Item>,
-) -> impl Responder {
+pub async fn put_item(item: Json<Item>) -> impl Responder {
+    let service = DefaultItemService::default();
     PutItemResponse {
-        payload: Box::new(item_service.save(&item)),
+        payload: Box::new(service.save(&item).await),
     }
 }
 
 #[get("/items")]
-async fn get_items(item_service: Inject<ItemServiceModule, dyn ItemService>) -> impl Responder {
+pub async fn get_items() -> impl Responder {
+    let service = DefaultItemService::default();
     GetItemsResponse {
-        items: item_service.find_all(),
+        items: service.find_all().await,
     }
 }
 
 #[get("/items/{item_id}")]
-async fn get_item_by_id(
-    item_service: Inject<ItemServiceModule, dyn ItemService>,
-    Path((item_id,)): Path<(Uuid,)>,
-) -> impl Responder {
+pub async fn get_item_by_id(Path((item_id,)): Path<(Uuid,)>) -> impl Responder {
+    let service = DefaultItemService::default();
     GetItemResponse {
-        payload: Box::new(item_service.find_by_id(item_id)),
+        payload: Box::new(service.find_by_id(item_id).await),
     }
 }
