@@ -9,7 +9,7 @@ use crate::domain::item::service::ItemService;
 pub async fn put_item(item: Json<Item>) -> impl Responder {
     let service = DefaultItemService::default();
     PutItemResponse {
-        payload: Box::new(service.save(&item).await),
+        payload: Box::new(service.save(&item)),
     }
 }
 
@@ -17,7 +17,7 @@ pub async fn put_item(item: Json<Item>) -> impl Responder {
 pub async fn get_items() -> impl Responder {
     let service = DefaultItemService::default();
     GetItemsResponse {
-        items: service.find_all().await,
+        items: service.find_all(),
     }
 }
 
@@ -25,6 +25,6 @@ pub async fn get_items() -> impl Responder {
 pub async fn get_item_by_id(Path((item_id,)): Path<(Uuid,)>) -> impl Responder {
     let service = DefaultItemService::default();
     GetItemResponse {
-        payload: Box::new(service.find_by_id(item_id).await),
+        payload: Box::new(service.find_by_id(item_id)),
     }
 }
